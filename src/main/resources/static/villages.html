@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Mobile Viewport Tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neer Drishti | Village Database</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">💧 Neer Drishti</a>
+            
+            <!-- Mobile Hamburger Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Live Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="villages.html">Village Database</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container px-4">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h5 class="mb-3">Filter & Search Parameters</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" id="searchKeyword" class="form-control" placeholder="Search ID, State, City, Name...">
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="minWqi" class="form-control" placeholder="Min WQI">
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="maxWqi" class="form-control" placeholder="Max WQI">
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="maxTds" class="form-control" placeholder="Max TDS (ppm)">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100" onclick="fetchVillages(0)">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="card">
+            <div class="card-body p-0">
+                <!-- Added table-responsive for mobile swiping -->
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-3">Village ID</th>
+                                <th>Location</th>
+                                <th>Temp (°C)</th>
+                                <th>pH</th>
+                                <th>TDS</th>
+                                <th>Turbidity</th>
+                                <th>WQI Score</th>
+                                <th class="pe-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="village-table-body">
+                            <!-- Populated by villages.js -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination Controls -->
+                <div class="d-flex justify-content-between align-items-center p-3 border-top">
+                    <button class="btn btn-outline-secondary" id="btn-prev" onclick="changePage(-1)">Previous</button>
+                    <span id="page-indicator" class="fw-bold">Page 1</span>
+                    <button class="btn btn-outline-secondary" id="btn-next" onclick="changePage(1)">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS for Mobile Menu -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="villages.js"></script>
+</body>
+</html>
