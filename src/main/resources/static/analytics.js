@@ -1,5 +1,3 @@
-// analytics.js
-
 function fetchAnalytics() {
     // Extract ID from the URL (e.g., analytics.html?id=VILL-001)
     const urlParams = new URLSearchParams(window.location.search);
@@ -16,9 +14,18 @@ function fetchAnalytics() {
             // Update Headers
             document.getElementById('village-title').innerText = `${data.villageName} (${data.villageId})`;
             
+            // Update WQI Score
             const wqiElement = document.getElementById('card-wqi');
             wqiElement.innerText = data.currentWqi.toFixed(2);
             wqiElement.className = data.currentWqi > 100 ? "text-danger" : "text-success";
+
+            // NEW: Update Last Updated Timestamp
+            const lastUpdatedElement = document.getElementById('card-last-updated');
+            if (data.date && data.time) {
+                lastUpdatedElement.innerText = `${data.date} at ${data.time}`;
+            } else {
+                lastUpdatedElement.innerText = "Data Not Available";
+            }
 
             // Draw Charts
             drawChart('phChart', 'pH Level', data.actualPh, data.standardPh, 14);
