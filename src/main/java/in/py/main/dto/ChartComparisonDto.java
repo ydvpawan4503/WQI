@@ -12,8 +12,10 @@ public class ChartComparisonDto {
     // Meta Data
     private String villageId;
     private String villageName;
+    private String date; 
+    private String time; 
     
-    // Actual Recorded Values from the Sensor
+    
     private double actualPh;
     private double actualTds;
     private double actualTurbidity;

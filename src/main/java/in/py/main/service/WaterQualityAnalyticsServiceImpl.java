@@ -30,6 +30,10 @@ public class WaterQualityAnalyticsServiceImpl implements WaterQualityAnalyticsSe
         dto.setVillageId(village.getVillageId());
         dto.setVillageName(village.getVillageName());
         
+        // NEW: Map the date and time from the Database to the DTO
+        dto.setDate(village.getDate());
+        dto.setTime(village.getTime());
+        
         // Actual Recorded Values
         dto.setActualPh(village.getPh());
         dto.setActualTds(village.getTds());
