@@ -9,7 +9,10 @@ function fetchAnalytics() {
     }
 
     fetch(`/api/water/analytics/${villageId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error("Network response was not ok");
+            return response.json();
+        })
         .then(data => {
             // Update Headers
             document.getElementById('village-title').innerText = `${data.villageName} (${data.villageId})`;
@@ -19,12 +22,16 @@ function fetchAnalytics() {
             wqiElement.innerText = data.currentWqi.toFixed(2);
             wqiElement.className = data.currentWqi > 100 ? "text-danger" : "text-success";
 
-            // NEW: Update Last Updated Timestamp
+            // NEW: Update Last Updated Timestamp SAFELY
             const lastUpdatedElement = document.getElementById('card-last-updated');
-            if (data.date && data.time) {
-                lastUpdatedElement.innerText = `${data.date} at ${data.time}`;
+            if (lastUpdatedElement) { // <--- THIS IS THE MAGIC FIX. It checks if the HTML exists first!
+                if (data.date && data.time) {
+                    lastUpdatedElement.innerText = `${data.date} at ${data.time}`;
+                } else {
+                    lastUpdatedElement.innerText = "Data Not Available";
+                }
             } else {
-                lastUpdatedElement.innerText = "Data Not Available";
+                console.warn("Could not find 'card-last-updated' in HTML. Please Hard Refresh (Ctrl + Shift + R).");
             }
 
             // Draw Charts
